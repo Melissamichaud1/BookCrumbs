@@ -4,11 +4,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Add = () => {
+  const defaultCover = "https://i.imgur.com/J5LVHEL.jpg";
   const [book, setBook] = useState({
     title: "",
     desc: "",
     price: null,
-    cover: "",
+    cover: defaultCover,
   });
   const [error, setError] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
@@ -26,55 +27,64 @@ const Add = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    if (!book.cover) {
+      setBook((prev) => ({ ...prev, cover: defaultCover }));
+    }
     try {
-      await axios.post("http://localhost:8800/books", book);
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/books`, book);
       navigate("/");
     } catch (err) {
-      console.log(err);
       setError(true);
     }
   };
 
   return (
-    <div className="form">
-      <h1>Add New Book</h1>
-      <input
-        type="text"
-        placeholder="Book title"
-        name="title"
-        onChange={handleChange}
-      />
-      <textarea
-        rows={5}
-        type="text"
-        placeholder="Book desc"
-        name="desc"
-        onChange={handleChange}
-      />
-      <input
-        type="number"
-        placeholder="Book price"
-        name="price"
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        placeholder="Book cover URL"
-        name="cover"
-        onChange={handleChange}
-      />
-      {imagePreview && (
-        <div className="image-preview">
-          <img
-            src={imagePreview}
-            alt="Cover Preview"
-            style={{ width: "200px", height: "auto" }}
+    <div className="app updateBackground">
+      <div className="backgroundOverlay"></div>
+      <div className="innerContainer">
+        <div className="form">
+          <h1>Add New Book</h1>
+          <input
+            type="text"
+            placeholder="Book title"
+            name="title"
+            onChange={handleChange}
           />
+          <textarea
+            rows={5}
+            type="text"
+            placeholder="Book desc"
+            name="desc"
+            onChange={handleChange}
+          />
+          <input
+            type="number"
+            placeholder="Book price"
+            name="price"
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            placeholder="Book cover URL"
+            name="cover"
+            onChange={handleChange}
+          />
+          {imagePreview && (
+            <div className="image-preview">
+              <img
+                src={imagePreview}
+                alt="Cover Preview"
+                style={{ width: "200px", height: "auto" }}
+              />
+            </div>
+          )}
+          <button onClick={handleClick}>Add</button>
+          {error && <p>Something went wrong!</p>}
+          <Link to="/" style={{ color: "white" }}>
+            See all books
+          </Link>
         </div>
-      )}
-      <button onClick={handleClick}>Add</button>
-      {error && <p>Something went wrong!</p>}
-      <Link to="/">See all books</Link>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,8 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
-import mysql from "mysql";
+import mysql from "mysql2";
 import cors from "cors";
 
 const app = express();
@@ -21,6 +24,7 @@ db.connect((err) => {
   console.log("Connected to MySQL Database");
 });
 
+// Get all books
 app.get("/", (req, res) => {
   res.json("hello");
 });
@@ -35,6 +39,18 @@ app.get("/books", (req, res) => {
   });
 });
 
+// Get one book
+app.get("/books/:id", (req, res) => {
+  const bookId = req.params.id;
+  const q = "SELECT * FROM books WHERE id = ?";
+  db.query(q, [bookId], (err, data) => {
+    if (err) return res.status(500).json({ message: "Internal Server Error" });
+    if (data.length < 1)
+      return res.status(404).json({ message: "Book not found" });
+    return res.json(data[0]);
+  });
+});
+
 app.post("/books", (req, res) => {
   const q = "INSERT INTO books(`title`, `desc`, `price`, `cover`) VALUES (?)";
   const values = [
@@ -43,14 +59,15 @@ app.post("/books", (req, res) => {
     req.body.price,
     req.body.cover,
   ];
+
   db.query(q, [values], (err, data) => {
     if (err) {
       console.error("Error in POST /books:", err);
       return res
         .status(500)
         .json({ message: "Internal Server Error", error: err });
-      return res.json(data);
     }
+    res.status(201).json({ message: "Book added successfully", data: data });
   });
 });
 

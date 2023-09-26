@@ -1,80 +1,143 @@
 .app {
-  height: 100vh;
-  padding: 0 100px;
+  min-height: 100vh;
+  width: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   text-align: center;
+  color: white;
+  overflow: hidden;
+}
 
-  .addHome {
-    padding: 10px;
-    margin-top: 20px;
-    cursor: pointer;
-    border: none;
-    background-color: teal;
-    color: white;
-    font-weight: bold;
+.innerContainer {
+  padding: 0 100px;
+  width: auto;
+  @media (max-width: 768px) {
+    padding: 0 20px;
   }
+}
 
-  h1 {
-    margin-bottom: 50px;
-  }
+.addHome {
+  padding: 10px;
+  margin-top: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: grey;
+  color: white;
+  font-weight: bold;
+}
 
-  .books {
-    display: flex;
+h1 {
+  margin-bottom: 50px;
+}
 
-    .book {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+.books {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 
-      img {
-        width: 200px;
-        height: 300px;
-        object-fit: cover;
-      }
-
-      button {
-        padding: 3px 6px;
-        background-color: white;
-        cursor: pointer;
-      }
-      .delete {
-        border: 1px solid rgb(245, 191, 191);
-        color: rgb(242, 100, 100);
-      }
-      .update {
-        border: 1px solid rgb(204, 204, 243);
-        color: rgb(139, 139, 234);
-      }
-    }
-  }
-
-  .form {
+  .book {
+    flex: 0 0 calc(33.333% - 20px);
+    margin: 10px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 10px;
 
-    input {
-      width: 250px;
-      padding: 10px;
-      border: 1px solid gray;
-    }
-
-    textarea {
-      padding: 10px;
+    img {
+      width: 200px;
+      height: 300px;
+      object-fit: cover;
     }
 
     button {
-      border: none;
-      padding: 10px;
+      padding: 3px 6px;
       background-color: white;
-      background-color: teal;
-      color: white;
-      font-weight: bold;
       cursor: pointer;
+    }
+    .delete {
+      border: 1px solid rgb(194, 81, 81);
+      background-color: rgb(194, 81, 81);
+      color: white;
+    }
+    .update {
+      border: 1px solid rgb(33, 130, 33);
+      background-color: rgb(33, 130, 33);
+      color: white;
+    }
+  }
+}
+
+// Background
+
+.updateBackground {
+  position: relative;
+  min-height: 100vh;
+
+  .backgroundOverlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: url("images/library.jpeg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.141);
+      pointer-events: none;
+    }
+  }
+}
+
+.booksBackground {
+  background-image: url("images/library.jpeg");
+  background-size: cover;
+  height: 100vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  input,
+  textarea {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid lightgray;
+    background-color: lightgrey;
+    border-radius: 10px;
+    margin: 0 auto;
+    @media (max-width: 768px) {
+      width: 250px;
+    }
+  }
+
+  button {
+    width: 300px;
+    border: none;
+    padding: 10px;
+    background-color: #d3d3d3c7;
+    background-color: rgb(33, 130, 33);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px;
+    @media (max-width: 768px) {
+      width: 250px;
     }
   }
 }
