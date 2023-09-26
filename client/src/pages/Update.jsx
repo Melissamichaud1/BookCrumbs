@@ -1,4 +1,5 @@
 import axios from "axios";
+import StarRatingComponent from "react-star-rating-component";
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -9,9 +10,11 @@ const Update = () => {
     desc: "",
     price: "",
     cover: "",
+    rating: 0,
   });
   const [error, setError] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+  const [rating, setRating] = useState(book.rating);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,6 +27,7 @@ const Update = () => {
           `${process.env.REACT_APP_API_BASE_URL}/books/${bookId}`
         );
         setBook(response.data);
+        setRating(response.data.rating);
       } catch (error) {
         setError(true);
       }
@@ -37,6 +41,11 @@ const Update = () => {
     if (name === "cover") {
       setImagePreview(value);
     }
+  };
+
+  const onStarClick = (nextValue) => {
+    setRating(nextValue);
+    setBook((prev) => ({ ...prev, rating: nextValue }));
   };
 
   const handleClick = async (e) => {
@@ -87,6 +96,14 @@ const Update = () => {
             value={book.price}
             onChange={handleChange}
           />
+          <div className="rating-stars">
+            <StarRatingComponent
+              name="rate1"
+              starCount={5}
+              value={rating}
+              onStarClick={onStarClick.bind(this)}
+            />
+          </div>
           <input
             type="text"
             placeholder="Book Cover URL"

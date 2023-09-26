@@ -7,6 +7,18 @@ import { Link } from "react-router-dom";
 const Books = () => {
   const [books, setBooks] = useState([]);
 
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <span key={i} style={{ color: i <= rating ? "gold" : "gray" }}>
+          ★
+        </span>
+      );
+    }
+    return stars;
+  };
+
   useEffect(() => {
     const fetchAllBooks = async () => {
       try {
@@ -36,10 +48,10 @@ const Books = () => {
     <div className="app updateBackground">
       <div className="backgroundOverlay"></div>
       <div className="innerContainer">
-        <h1>BookCrumbs</h1>
+        <h1>Book Crumbs</h1>
         <button className="addHome">
           <Link to="/add" style={{ color: "inherit", textDecoration: "none" }}>
-            Add new book
+            Add New Book
           </Link>
         </button>
 
@@ -52,6 +64,9 @@ const Books = () => {
                 <h3>{book.author}</h3>
                 <p>{book.desc}</p>
                 <span>${book.price}</span>
+                <div className="rating-stars">
+                  <p>{renderStars(book.rating)}</p>
+                </div>
                 <button
                   className="delete"
                   onClick={() => handleDelete(book.id)}

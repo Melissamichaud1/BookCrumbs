@@ -53,13 +53,14 @@ app.get("/books/:id", (req, res) => {
 
 app.post("/books", (req, res) => {
   const q =
-    "INSERT INTO books(`title`, `author`, `desc`, `price`, `cover`) VALUES (?)";
+    "INSERT INTO books(`title`, `author`, `desc`, `price`, `cover`, `rating`) VALUES (?)";
   const values = [
     req.body.title,
     req.body.author,
     req.body.desc,
     req.body.price,
     req.body.cover,
+    req.body.rating,
   ];
 
   db.query(q, [values], (err, data) => {
@@ -85,17 +86,18 @@ app.delete("/books/:id", (req, res) => {
 app.put("/books/:id", (req, res) => {
   const bookId = req.params.id;
   const q =
-    "UPDATE books SET `title`= ?, `author`= ?, `desc`= ?, `price`= ?, `cover`= ? WHERE id = ?";
+    "UPDATE books SET `title`= ?, `author`= ?, `desc`= ?, `price`= ?, `cover`= ? , `rating` = ? WHERE id = ?";
   const values = [
     req.body.title,
     req.body.author,
     req.body.desc,
     req.body.price,
     req.body.cover,
+    req.body.rating,
   ];
   db.query(q, [...values, bookId], (err, data) => {
     if (err) {
-      console.error("Error in POST /books:", err);
+      console.error("Error in PUT /books:", err);
       return res
         .status(500)
         .json({ message: "Internal Server Error", error: err });
