@@ -11,7 +11,7 @@ const Books = () => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(
-        <span key={i} style={{ color: i <= rating ? "gold" : "gray" }}>
+        <span key={i} style={{ color: i <= rating ? "gold" : "white" }}>
           ★
         </span>
       );
@@ -48,7 +48,7 @@ const Books = () => {
     <div className="app updateBackground">
       <div className="backgroundOverlay"></div>
       <div className="innerContainer">
-        <h1>Book Crumbs</h1>
+        <h1>Book Crumbs .</h1>
         <button className="addHome">
           <Link to="/add" style={{ color: "inherit", textDecoration: "none" }}>
             Add New Book
@@ -63,7 +63,9 @@ const Books = () => {
                 <h2>{book.title}</h2>
                 <h3>{book.author}</h3>
                 <p>{book.desc}</p>
-                <span>${book.price}</span>
+                <div className="bookprice">
+                  <span>${book.price}</span>
+                </div>
                 <div className="rating-stars">
                   <p>{renderStars(book.rating)}</p>
                 </div>

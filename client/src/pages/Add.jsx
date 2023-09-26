@@ -16,7 +16,7 @@ const Add = () => {
   });
   const [error, setError] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
 
   const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ const Add = () => {
       <div className="backgroundOverlay"></div>
       <div className="innerContainer">
         <div className="form">
-          <h1>Add New Book</h1>
+          <h1>New Book</h1>
           <input
             type="text"
             placeholder="Title"
@@ -82,6 +82,7 @@ const Add = () => {
               name="rate1"
               starCount={5}
               value={rating}
+              emptyStarColor={"white"}
               onStarClick={onStarClick.bind(this)}
             />
           </div>
@@ -97,6 +98,11 @@ const Add = () => {
                 src={imagePreview}
                 alt="Cover Preview"
                 style={{ width: "200px", height: "auto" }}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = defaultCover;
+                  setBook((prev) => ({ ...prev, cover: defaultCover }));
+                }}
               />
             </div>
           )}

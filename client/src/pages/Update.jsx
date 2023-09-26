@@ -66,7 +66,7 @@ const Update = () => {
       <div className="backgroundOverlay"></div>
       <div className="innerContainer">
         <div className="form">
-          <h1>Update the Book</h1>
+          <h1>Update Book</h1>
           <input
             type="text"
             placeholder="Title"
@@ -101,6 +101,7 @@ const Update = () => {
               name="rate1"
               starCount={5}
               value={rating}
+              emptyStarColor={"white"}
               onStarClick={onStarClick.bind(this)}
             />
           </div>
