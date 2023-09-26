@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const Update = () => {
   const [book, setBook] = useState({
     title: "",
+    author: "",
     desc: "",
     price: "",
     cover: "",
@@ -59,29 +60,36 @@ const Update = () => {
           <h1>Update the Book</h1>
           <input
             type="text"
-            placeholder="Book title"
+            placeholder="Title"
             name="title"
             value={book.title}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            placeholder="Author"
+            name="author"
+            value={book.author}
             onChange={handleChange}
           />
           <textarea
             rows={5}
             type="text"
-            placeholder="Book desc"
+            placeholder="Description"
             name="desc"
             value={book.desc}
             onChange={handleChange}
           />
           <input
             type="number"
-            placeholder="Book price"
+            placeholder="Price"
             name="price"
             value={book.price}
             onChange={handleChange}
           />
           <input
             type="text"
-            placeholder="Book cover"
+            placeholder="Book Cover URL"
             name="cover"
             value={book.cover}
             onChange={handleChange}

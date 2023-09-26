@@ -49,6 +49,7 @@ const Books = () => {
               <div key={book.id} className="book">
                 <img src={book.cover} alt="" />
                 <h2>{book.title}</h2>
+                <h3>{book.author}</h3>
                 <p>{book.desc}</p>
                 <span>${book.price}</span>
                 <button

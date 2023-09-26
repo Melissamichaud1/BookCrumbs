@@ -7,6 +7,7 @@ const Add = () => {
   const defaultCover = "https://i.imgur.com/J5LVHEL.jpg";
   const [book, setBook] = useState({
     title: "",
+    author: "",
     desc: "",
     price: null,
     cover: defaultCover,
@@ -46,26 +47,32 @@ const Add = () => {
           <h1>Add New Book</h1>
           <input
             type="text"
-            placeholder="Book title"
+            placeholder="Title"
             name="title"
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            placeholder="Author"
+            name="author"
             onChange={handleChange}
           />
           <textarea
             rows={5}
             type="text"
-            placeholder="Book desc"
+            placeholder="Description"
             name="desc"
             onChange={handleChange}
           />
           <input
             type="number"
-            placeholder="Book price"
+            placeholder="Price"
             name="price"
             onChange={handleChange}
           />
           <input
             type="text"
-            placeholder="Book cover URL"
+            placeholder="Book Cover URL"
             name="cover"
             onChange={handleChange}
           />
